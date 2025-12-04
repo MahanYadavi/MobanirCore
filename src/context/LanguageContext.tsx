@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Language = 'en' | 'fa' | 'ar';
+export type Language = 'en' | 'fa' | 'ar';
 
 type Translations = {
   [key in Language]: {
@@ -30,6 +30,22 @@ const translations: Translations = {
     allProjects: "All Projects",
     readMore: "Read More",
     latestNews: "Latest News",
+    safetyFirst: "Safety First",
+    safetyDesc: "Zero-accident policy with strict HSE adherence.",
+    onTime: "On-Time Delivery",
+    onTimeDesc: "Proven track record of meeting strict deadlines.",
+    sustainable: "Sustainable",
+    sustainableDesc: "Eco-friendly practices in every project.",
+    certified: "Certified Quality",
+    certifiedDesc: "ISO 9001 & National Standards compliant.",
+    aboutTitleSmall: "About ElectroGas",
+    aboutHeading: "Engineering the Infrastructure of Tomorrow",
+    expertEngineers: "Expert Engineers",
+    topTalent: "Top-tier talent",
+    modernTech: "Modern Tech",
+    latestEquip: "Latest equipment",
+    ceoName: "Dr. Arash Alavi",
+    ceoTitle: "CEO & Founder",
     
     // Services/Sectors
     electrical: "Electrical",
@@ -70,6 +86,12 @@ const translations: Translations = {
     openPositions: "Open Positions",
     applyNow: "Apply Now",
     noPositions: "No current openings, but send us your CV!",
+    generalApp: "General Application",
+    generalAppDesc: "Don't see a fitting role? Send us your CV and we'll contact you when a position opens.",
+    coverLetter: "Cover Letter",
+    
+    // Projects Page
+    projectsPageDesc: "Explore our extensive portfolio of over 120 successful projects across various sectors.",
     
     // Misc
     darkMode: "Dark Mode",
@@ -98,6 +120,22 @@ const translations: Translations = {
     allProjects: "همه پروژه‌ها",
     readMore: "بیشتر بخوانید",
     latestNews: "آخرین اخبار",
+    safetyFirst: "اول ایمنی",
+    safetyDesc: "سیاست حادثه صفر با رعایت دقیق HSE.",
+    onTime: "تحویل به موقع",
+    onTimeDesc: "سابقه درخشان در رعایت زمان‌بندی‌های دقیق.",
+    sustainable: "پایدار",
+    sustainableDesc: "روش‌های دوستدار محیط زیست در هر پروژه.",
+    certified: "کیفیت تضمین شده",
+    certifiedDesc: "مطابق با استانداردهای ISO 9001 و ملی.",
+    aboutTitleSmall: "درباره الکتروگاز",
+    aboutHeading: "مهندسی زیرساخت‌های فردا",
+    expertEngineers: "مهندسین خبره",
+    topTalent: "استعدادهای برتر",
+    modernTech: "تکنولوژی مدرن",
+    latestEquip: "جدیدترین تجهیزات",
+    ceoName: "دکتر آرش علوی",
+    ceoTitle: "مدیرعامل و موسس",
     
     // Services/Sectors
     electrical: "برق",
@@ -134,10 +172,16 @@ const translations: Translations = {
     
     // Careers
     joinTeam: "به تیم ما بپیوندید",
-    careersDesc: "آینده خود را با ما بسازید. ما همیشه به دنبال مهندسین و تکنسین‌های با استعداد هستیم.",
+    careersDesc: "آینده خود را با ما بسازید. ما همیشه به دنبال مهندسين و تکنسین‌های با استعداد هستیم.",
     openPositions: "فرصت‌های شغلی موجود",
     applyNow: "ارسال رزومه",
     noPositions: "در حال حاضر موقعیت شغلی بازی وجود ندارد، اما رزومه خود را ارسال کنید!",
+    generalApp: "درخواست عمومی",
+    generalAppDesc: "موقعیت شغلی مناسب خود را پیدا نکردید؟ رزومه خود را ارسال کنید تا در صورت باز شدن موقعیت با شما تماس بگیریم.",
+    coverLetter: "توضیحات / نامه پوششی",
+    
+    // Projects Page
+    projectsPageDesc: "مجموعه گسترده ما از بیش از ۱۲۰ پروژه موفق در بخش‌های مختلف را کاوش کنید.",
     
     // Misc
     darkMode: "حالت تاریک",
@@ -166,6 +210,22 @@ const translations: Translations = {
     allProjects: "جميع المشاريع",
     readMore: "اقرأ المزيد",
     latestNews: "آخر الأخبار",
+    safetyFirst: "السلامة أولاً",
+    safetyDesc: "سياسة خالية من الحوادث مع الامتثال الصارم لـ HSE.",
+    onTime: "التسليم في الوقت المحدد",
+    onTimeDesc: "سجل حافل في الوفاء بالمواعيد النهائية الصارمة.",
+    sustainable: "مستدام",
+    sustainableDesc: "ممارسات صديقة للبيئة في كل مشروع.",
+    certified: "جودة معتمدة",
+    certifiedDesc: "متوافق مع معايير ISO 9001 والمعايير الوطنية.",
+    aboutTitleSmall: "عن إلكتروغاز",
+    aboutHeading: "هندسة البنية التحتية للغد",
+    expertEngineers: "مهندسون خبراء",
+    topTalent: "أفضل المواهب",
+    modernTech: "تكنولوجيا حديثة",
+    latestEquip: "أحدث المعدات",
+    ceoName: "د. آرش علوي",
+    ceoTitle: "الرئيس التنفيذي والمؤسس",
     
     // Services/Sectors
     electrical: "كهرباء",
@@ -206,6 +266,12 @@ const translations: Translations = {
     openPositions: "الوظائف المتاحة",
     applyNow: "قدم الآن",
     noPositions: "لا توجد وظائف شاغرة حاليًا، ولكن أرسل سيرتك الذاتية!",
+    generalApp: "طلب عام",
+    generalAppDesc: "لا تجد وظيفة مناسبة؟ أرسل سيرتك الذاتية وسنتصل بك عند توفر منصب.",
+    coverLetter: "رسالة تغطية",
+    
+    // Projects Page
+    projectsPageDesc: "استكشف محفظتنا الواسعة التي تضم أكثر من 120 مشروعًا ناجحًا في مختلف القطاعات.",
     
     // Misc
     darkMode: "الوضع المظلم",

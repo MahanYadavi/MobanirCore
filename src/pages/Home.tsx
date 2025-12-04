@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'framer-motion';
-import { ArrowRight, Award, Zap, Building2, Users, CheckCircle2, Quote, ShieldCheck, Clock, Leaf } from 'lucide-react';
+import { ArrowRight, Award, CheckCircle2, Quote, ShieldCheck, Clock, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { certificates } from '../data/mockData';
 
 const Home = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
 
   const partners = [
     "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
@@ -18,10 +18,10 @@ const Home = () => {
   ];
 
   const features = [
-    { icon: ShieldCheck, title: "Safety First", desc: "Zero-accident policy with strict HSE adherence." },
-    { icon: Clock, title: "On-Time Delivery", desc: "Proven track record of meeting strict deadlines." },
-    { icon: Leaf, title: "Sustainable", desc: "Eco-friendly practices in every project." },
-    { icon: Award, title: "Certified Quality", desc: "ISO 9001 & National Standards compliant." },
+    { icon: ShieldCheck, title: t('safetyFirst'), desc: t('safetyDesc') },
+    { icon: Clock, title: t('onTime'), desc: t('onTimeDesc') },
+    { icon: Leaf, title: t('sustainable'), desc: t('sustainableDesc') },
+    { icon: Award, title: t('certified'), desc: t('certifiedDesc') },
   ];
 
   return (
@@ -97,9 +97,9 @@ const Home = () => {
 
            <div className="mt-24 flex flex-col md:flex-row gap-16 items-center">
               <div className="w-full md:w-1/2 space-y-6">
-                <h2 className="text-gold-600 font-bold tracking-wider uppercase text-sm">About ElectroGas</h2>
+                <h2 className="text-gold-600 font-bold tracking-wider uppercase text-sm">{t('aboutTitleSmall')}</h2>
                 <h3 className="text-4xl font-bold text-navy-900 dark:text-white leading-tight">
-                  Engineering the Infrastructure of Tomorrow
+                  {t('aboutHeading')}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                   {t('aboutDesc')}
@@ -108,15 +108,15 @@ const Home = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="text-gold-600 mt-1 shrink-0" />
                     <div>
-                      <h4 className="font-bold text-navy-900 dark:text-white">Expert Engineers</h4>
-                      <p className="text-sm text-gray-500">Top-tier talent</p>
+                      <h4 className="font-bold text-navy-900 dark:text-white">{t('expertEngineers')}</h4>
+                      <p className="text-sm text-gray-500">{t('topTalent')}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="text-gold-600 mt-1 shrink-0" />
                     <div>
-                      <h4 className="font-bold text-navy-900 dark:text-white">Modern Tech</h4>
-                      <p className="text-sm text-gray-500">Latest equipment</p>
+                      <h4 className="font-bold text-navy-900 dark:text-white">{t('modernTech')}</h4>
+                      <p className="text-sm text-gray-500">{t('latestEquip')}</p>
                     </div>
                   </div>
                 </div>
@@ -173,8 +173,8 @@ const Home = () => {
                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80" alt="CEO" className="w-full h-full object-cover" />
             </div>
             <div className="text-left rtl:text-right">
-              <h4 className="font-bold text-navy-900 dark:text-white">Dr. Arash Alavi</h4>
-              <p className="text-sm text-gold-600">CEO & Founder</p>
+              <h4 className="font-bold text-navy-900 dark:text-white">{t('ceoName')}</h4>
+              <p className="text-sm text-gold-600">{t('ceoTitle')}</p>
             </div>
           </div>
         </div>
@@ -197,7 +197,7 @@ const Home = () => {
                 <div className="h-64 overflow-hidden bg-gray-100 relative">
                   <img 
                     src={cert.image} 
-                    alt={cert.title} 
+                    alt={cert.title[language]} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-navy-900/0 group-hover:bg-navy-900/40 transition-colors duration-300 flex items-center justify-center">
@@ -205,8 +205,8 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">{cert.title}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">{cert.desc}</p>
+                  <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-2">{cert.title[language]}</h3>
+                  <p className="text-gray-500 dark:text-gray-400">{cert.desc[language]}</p>
                 </div>
               </motion.div>
             ))}

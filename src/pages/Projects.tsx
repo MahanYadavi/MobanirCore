@@ -5,7 +5,7 @@ import { Zap, Flame, Hammer, Filter } from 'lucide-react';
 import { generateProjects, Category } from '../data/mockData';
 
 const Projects = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [filter, setFilter] = useState<Category>('All');
   const [visibleCount, setVisibleCount] = useState(12);
 
@@ -25,7 +25,7 @@ const Projects = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-navy-900 dark:text-white mb-4">{t('allProjects')}</h1>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Explore our extensive portfolio of over 120 successful projects across various sectors.
+            {t('projectsPageDesc')}
           </p>
         </div>
 
@@ -62,7 +62,7 @@ const Projects = () => {
                 <div className="relative h-48 overflow-hidden">
                   <img 
                     src={project.image} 
-                    alt={project.title}
+                    alt={project.title[language]}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute top-2 right-2 bg-navy-900/80 text-gold-500 text-xs px-2 py-1 rounded backdrop-blur-sm">
@@ -77,8 +77,8 @@ const Projects = () => {
                     {project.category === 'Construction' && <Hammer className="w-4 h-4 text-gold-600" />}
                     <span className="text-xs font-semibold text-gold-600 uppercase tracking-wider">{t(project.category.toLowerCase())}</span>
                   </div>
-                  <h3 className="font-bold text-navy-900 dark:text-white text-lg mb-1">{project.title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{project.location}</p>
+                  <h3 className="font-bold text-navy-900 dark:text-white text-lg mb-1">{project.title[language]}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{project.location[language]}</p>
                 </div>
               </motion.div>
             ))}
