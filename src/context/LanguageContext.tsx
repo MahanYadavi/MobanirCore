@@ -144,10 +144,10 @@ const translations: Translations = {
     construction: "ساختمانی",
     
     // Footer & Common
-    copyright: "© ۲۰۲۵ مهندسین بهین آوران نیرو. تمامی حقوق محفوظ است.",
-    address: "میرداماد,خیابان کازرون شمالی, خیابان نیک رای, پلاک ۲, طبقه سوم واحد ۶",
-    phone: "02122905211",
-    email: "info@mobanir.com",
+    copyright: "© ۲۰۲۵ شرکت الکتروگاز. تمامی حقوق محفوظ است.",
+    address: "ایران، تهران، خیابان صنعت، پلاک ۱۲۳",
+    phone: "+98 21 1234 5678",
+    email: "info@electrogas.com",
     sendMessage: "ارسال پیام",
     name: "نام",
     subject: "موضوع",

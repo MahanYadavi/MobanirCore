@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
@@ -10,7 +10,17 @@ const Navbar = () => {
   const { t, language, setLanguage, dir } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const links = [
     { name: t('home'), path: '/' },
@@ -22,39 +32,60 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 dark:bg-navy-950/95 backdrop-blur-md border-b border-gray-200 dark:border-navy-800 shadow-lg transition-colors duration-300">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      scrolled 
+        ? "bg-white/95 dark:bg-navy-950/95 backdrop-blur-md shadow-lg py-2" 
+        : "bg-transparent py-6"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
+        <div className="flex justify-between items-center">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-navy-900 dark:bg-gold-600 p-2 rounded-lg transition-colors duration-300 shadow-lg group-hover:scale-105 transform">
-              <Zap className="h-6 w-6 text-gold-500 dark:text-navy-900" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className={cn(
+              "p-2 rounded-lg transition-colors duration-300 shadow-lg group-hover:scale-105 transform",
+              scrolled ? "bg-navy-900 dark:bg-gold-600" : "bg-white/10 backdrop-blur-md"
+            )}>
+              <Zap className={cn(
+                "h-6 w-6",
+                scrolled ? "text-gold-500 dark:text-navy-900" : "text-gold-400"
+              )} />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl text-navy-900 dark:text-white leading-none tracking-tight">ELECTRO<span className="text-gold-600">GAS</span></span>
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase">Contracting</span>
+              <span className={cn(
+                "font-bold text-2xl leading-none tracking-tight transition-colors",
+                scrolled ? "text-navy-900 dark:text-white" : "text-white"
+              )}>
+                ELECTRO<span className="text-gold-500">GAS</span>
+              </span>
+              <span className={cn(
+                "text-[10px] tracking-[0.3em] uppercase font-medium",
+                scrolled ? "text-gray-500 dark:text-gray-400" : "text-gray-300"
+              )}>
+                Contracting
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-8">
             {links.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "text-sm font-bold uppercase tracking-wide transition-colors hover:text-gold-600 dark:hover:text-gold-400 relative py-1",
+                  "text-sm font-bold uppercase tracking-wider transition-colors relative py-1",
                   location.pathname === link.path 
-                    ? "text-gold-600 dark:text-gold-400" 
-                    : "text-navy-800 dark:text-gray-300"
+                    ? "text-gold-500" 
+                    : scrolled ? "text-navy-800 dark:text-gray-300 hover:text-gold-600" : "text-gray-200 hover:text-white"
                 )}
               >
                 {link.name}
                 {location.pathname === link.path && (
                   <motion.div 
                     layoutId="underline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold-600 dark:bg-gold-400"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold-500"
                   />
                 )}
               </Link>
@@ -65,7 +96,12 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             {/* Language Switcher */}
             <div className="relative group">
-              <button className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-gold-600 dark:hover:text-gold-400 transition-colors bg-gray-100 dark:bg-navy-800 px-3 py-1.5 rounded-full">
+              <button className={cn(
+                "flex items-center gap-1 transition-colors px-3 py-1.5 rounded-full border",
+                scrolled 
+                  ? "text-gray-700 dark:text-gray-300 border-gray-200 dark:border-navy-700 hover:border-gold-500" 
+                  : "text-white border-white/20 hover:bg-white/10"
+              )}>
                 <Globe className="h-4 w-4" />
                 <span className="uppercase text-xs font-bold">{language}</span>
               </button>
@@ -82,7 +118,12 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-100 dark:bg-navy-800 hover:bg-gold-100 dark:hover:bg-navy-700 text-navy-900 dark:text-gold-400 transition-colors"
+              className={cn(
+                "p-2 rounded-full transition-colors",
+                scrolled 
+                  ? "bg-gray-100 dark:bg-navy-800 text-navy-900 dark:text-gold-400 hover:bg-gold-100" 
+                  : "bg-white/10 text-white hover:bg-white/20"
+              )}
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
@@ -92,11 +133,14 @@ const Navbar = () => {
           <div className="lg:hidden flex items-center gap-4">
              <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-100 dark:bg-navy-800 text-navy-900 dark:text-gold-400 transition-colors"
+              className={cn(
+                "p-2 rounded-full transition-colors",
+                scrolled ? "bg-gray-100 dark:bg-navy-800 text-navy-900 dark:text-gold-400" : "bg-white/10 text-white"
+              )}
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-navy-900 dark:text-white">
+            <button onClick={() => setIsOpen(!isOpen)} className={scrolled ? "text-navy-900 dark:text-white" : "text-white"}>
               {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
             </button>
           </div>
@@ -110,7 +154,7 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden bg-white dark:bg-navy-950 border-b border-gray-200 dark:border-navy-800 overflow-hidden"
+            className="lg:hidden bg-white dark:bg-navy-950 border-b border-gray-200 dark:border-navy-800 overflow-hidden shadow-xl absolute top-full left-0 w-full"
           >
             <div className="px-4 pt-2 pb-4 space-y-1">
               {links.map((link) => (

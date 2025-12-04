@@ -18,24 +18,32 @@ export default {
           600: '#486581',
           700: '#334e68',
           800: '#243b53',
-          900: '#102a43', // Deep Navy
-          950: '#0B1120', // Darker Navy
+          900: '#102a43', 
+          950: '#0a192f', // Deep Navy
         },
         gold: {
-          100: '#fbf3db',
-          200: '#f7e7b7',
-          300: '#f3db93',
-          400: '#efcf6f',
-          500: '#ebc34b',
-          600: '#d4af37', // Classic Gold
-          700: '#aa8c2c',
-          800: '#806921',
-          900: '#554616',
+          100: '#fff9e6',
+          200: '#ffecb3',
+          300: '#ffe080',
+          400: '#ffd44d',
+          500: '#ffc81a',
+          600: '#e6b400',
+          700: '#b38c00',
+          800: '#806300',
+          900: '#4d3c00',
+        },
+        dark: {
+          bg: '#0b1120', // Darker slate/navy mix
+          card: '#162032',
+          surface: '#1c2a42',
         }
       },
       fontFamily: {
-        // Prioritize Vazirmatn for a consistent look across languages, or fall back to Inter
-        sans: ['Vazirmatn', 'Inter', 'sans-serif'], 
+        // Reverting to a cleaner stack. Vazirmatn is good for Persian, but we'll control weights better.
+        sans: ['Vazirmatn', 'ui-sans-serif', 'system-ui', 'sans-serif'], 
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       }
     },
   },
